@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">QuizDroid</string>
+
+    <string name="first_quiz">Math</string>
+    <string name="second_quiz">Physics</string>
+    <string name="third_quiz">Marvel Super Heroes</string>
+    <string name="fourth_quiz">Pop Culture</string>
+    <color name="main_color">#ff4c4c</color>
+</resources>
