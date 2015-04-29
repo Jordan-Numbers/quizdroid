@@ -9,23 +9,24 @@ import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main).setOnClickListener(onClickListener);
-        this.findViewById(R.id.marvel_quiz).setOnClickListener(onClickListener);
-        this.findViewById(R.id.math_quiz).setOnClickListener(onClickListener);
-        this.findViewById(R.id.pop_quiz).setOnClickListener(onClickListener);
-        this.findViewById(R.id.physics_quiz).setOnClickListener(onClickListener);
+        setContentView(R.layout.activity_main);
+        //listen for a topic to be selected
+        this.findViewById(R.id.quiz_one).setOnClickListener(onClickListener);
+        this.findViewById(R.id.quiz_two).setOnClickListener(onClickListener);
+        this.findViewById(R.id.quiz_three).setOnClickListener(onClickListener);
     }
 
     private OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent next = new Intent(this, topicActivity);
-            next.putExtra("quizId",v.getId());
+            //go to a topic page sending which one was selected
+            Intent next = new Intent(MainActivity.this, TopicActivity.class);
+            next.putExtra("topicID", v.getId());
             startActivity(next);
         }
     };
-
 }

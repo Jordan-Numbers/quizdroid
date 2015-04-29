@@ -1,9 +1,108 @@
 <resources>
     <string name="app_name">QuizDroid</string>
+    <string name="begin_quiz">Begin Quiz</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_topic">TopicActivity</string>
 
-    <string name="first_quiz">Math</string>
-    <string name="second_quiz">Physics</string>
-    <string name="third_quiz">Marvel Super Heroes</string>
-    <string name="fourth_quiz">Pop Culture</string>
-    <color name="main_color">#ff4c4c</color>
+
+    <string name="quiz_one">Math</string>
+    <string name="description_one">Test your computational knowledge. Are you calculating magician of Mathematics?</string>
+
+    <string-array name="questions_one">
+        <item>What is the Square Root of 144?</item>
+        <item>Solve (23 + 13) / 6</item>
+    </string-array>
+    <string-array name="correct_one">
+        <item>12</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="wrong_one">
+        <item>15</item>
+        <item>5</item>
+        <item>7</item>
+        <item>13</item>
+        <item>124</item>
+
+        <item>68</item>
+        <item>112</item>
+        <item>55</item>
+        <item>37</item>
+        <item>203</item>
+        <item>007</item>
+
+        <item>42</item>
+        <item>80085</item>
+        <item>515</item>
+        <item>619</item>
+        <item>22</item>
+        <item>8</item>
+        <item>9000</item>
+    </string-array>
+
+    <string name="quiz_two">Physics</string>
+    <string name="description_two">Place your name among Einstein, Heisenberg, and Newton. Answer questions about the universal rules of Physics!</string>
+
+    <string-array name="questions_two">
+        <item>What is the gravitational constant on Earth?</item>
+        <item>Energy is equal to what?</item>
+    </string-array>
+    <string-array name="correct_two">
+        <item>9.81 M/s^2</item>
+        <item>MC^2</item>
+    </string-array>
+    <string-array name="wrong_two">
+        <item>Mass x Acceleration</item>
+        <item>v1(v2)/g^2</item>
+        <item>Bernoulli\'s Principle</item>
+        <item>13 atms</item>
+        <item>5 Newtons</item>
+
+        <item>Efimov Factor</item>
+        <item>Bohr Radius</item>
+        <item>Gaussian Field</item>
+        <item>Rhydberg Constant</item>
+        <item>1 × 10−3 kg·mol−1</item>
+
+        <item>12</item>
+        <item>Width x Length x Height</item>
+        <item>101 325 Pa</item>
+        <item>Gucci</item>
+        <item>Bayesian Methodology</item>
+    </string-array>
+
+    <string name="quiz_three">Marvel Super Heroes</string>
+    <string name="description_three">Do you have your SHIELD lanyard? Prove you aren\'t HYDRA by answering Agent Koenig\'s questions.</string>
+
+    <string-array name="questions_three">
+        <item>Who is the current director of SHIELD?</item>
+        <item>Who is the principal founder of SHIELD?</item>
+    </string-array>
+    <string-array name="correct_three">
+        <item>Phil Coulson</item>
+        <item>Peggy Carter</item>
+    </string-array>
+    <string-array name="wrong_three">
+        <item>Daisy \"Quake\" Johnson</item>
+        <item>Howard Stark</item>
+        <item>Captain Steve Rogers</item>
+        <item>Hank Pym</item>
+        <item>Nicholas J. Fury</item>
+
+        <item>Clint Barton</item>
+        <item>Leopold Fitz</item>
+        <item>Jemma Simmons</item>
+        <item>Franklin \"Foggy\" Nelson</item>
+        <item>Matt Murdock</item>
+
+        <item>Natasha Romanov</item>
+        <item>Scott Lang</item>
+        <item>Stan \"The Man\" Lee</item>
+        <item>Miles Morales</item>
+        <item>Matt Murdock</item>
+    </string-array>
+    <string name="title_activity_answer">AnswerActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
