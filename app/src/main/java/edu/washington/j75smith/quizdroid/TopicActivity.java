@@ -45,7 +45,6 @@ public class TopicActivity extends Activity {
             case R.id.quiz_one:
                 title.setText(getString(R.string.quiz_one));
                 description.setText(getString(R.string.description_one));
-                Intent next = new Intent(TopicActivity.this, QuestionActivity.class);
                 this.questions = getResources().getStringArray(R.array.questions_one);
                 this.answers = getResources().getStringArray(R.array.correct_one);
                 this.fakes = getResources().getStringArray(R.array.wrong_one);
