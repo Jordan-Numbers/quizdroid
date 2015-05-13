@@ -32,7 +32,11 @@ public class AnswerFragment extends Fragment {
             this.userAnswer = (String) getArguments().get("answer");
         }
         if (hostActivity instanceof TopicActivity) {
-            this.answer = ((TopicActivity) hostActivity).getAnswer(this.index);
+            //get the given answer index SUBTRACT ONE BECAUSE IT ISNT ZERO BASED INDEXING in the JSON
+            int correctIndex = ((TopicActivity) hostActivity)
+                               .getQuestion(this.index).getAnswerIndex() - 1;
+            this.answer = ((TopicActivity) hostActivity)
+                          .getQuestion(this.index).getAnswers().get(correctIndex);
         }
     }
 

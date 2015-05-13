@@ -8,70 +8,40 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import java.util.Random;
+import java.util.List;
 
 
 public class TopicActivity extends Activity {
 
-    private int topic;
     private int length;
-    private String[] questions;
-    private String[] answers;
-    private String[] fakes;
+    private List<question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
+
+        //get which topic we are
         Intent previous = getIntent();
-        int topicSelected = previous.getIntExtra("topicID", 12);
-        this.topic = topicSelected;
-        displayTopicInfo(this.topic);
+        topic topic = (topic) previous.getExtras().get("topic");
+
+        //setup the quiz length and questions
+        this.questions = topic.getQuestions();
+        this.length = this.questions.size();
+
+        //set UI
+        TextView title = (TextView) this.findViewById(R.id.topic_title);
+        TextView description = (TextView) this.findViewById(R.id.topic_description);
+        title.setText(topic.getTitle());
+        description.setText(topic.getShortDescription());
+
+
         findViewById(R.id.btn_begin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadQuestionFrag(0, 0);
             }
         });
-    }
-
-    private void displayTopicInfo(int topic){
-        //get the UI elements
-        TextView title = (TextView) this.findViewById(R.id.topic_title);
-        TextView description = (TextView) this.findViewById(R.id.topic_description);
-        //Depending on the topic we need to display the title & descrip
-        switch (topic) {
-            case R.id.quiz_one:
-                title.setText(getString(R.string.quiz_one));
-                description.setText(getString(R.string.description_one));
-                this.questions = getResources().getStringArray(R.array.questions_one);
-                this.answers = getResources().getStringArray(R.array.correct_one);
-                this.fakes = getResources().getStringArray(R.array.wrong_one);
-                this.length = this.questions.length;
-                break;
-
-            case R.id.quiz_two:
-                title.setText(getString(R.string.quiz_two));
-                description.setText(getString(R.string.description_two));
-                this.questions = getResources().getStringArray(R.array.questions_two);
-                this.answers = getResources().getStringArray(R.array.correct_two);
-                this.fakes = getResources().getStringArray(R.array.wrong_two);
-                this.length = this.questions.length;
-                break;
-
-            case R.id.quiz_three:
-                title.setText(getString(R.string.quiz_three));
-                description.setText(getString(R.string.description_three));
-                this.questions = getResources().getStringArray(R.array.questions_three);
-                this.answers = getResources().getStringArray(R.array.correct_three);
-                this.fakes = getResources().getStringArray(R.array.wrong_three);
-                this.length = this.questions.length;
-                break;
-
-            default:
-                break;
-        }
     }
 
     public void loadQuestionFrag(int index, int correct) {
@@ -118,24 +88,9 @@ public class TopicActivity extends Activity {
 
     }
 
-    //returns three wrong answers for the current topic
-    public String[] getFakes() {
-        String[] wrong = new String[3];
-        Random r = new Random();
-        for(int i = 0; i < 3; i++){
-            wrong[i] = this.fakes[r.nextInt(15)];
-        }
-        return wrong;
-    }
-
     //returns the question at the given index
-    public String getQuestion(int index) {
-        return this.questions[index];
-    }
-
-    //returns the answer at the given index
-    public String getAnswer(int index){
-        return this.answers[index];
+    public question getQuestion(int index) {
+        return this.questions.get(index);
     }
 
     //returns the quiz length

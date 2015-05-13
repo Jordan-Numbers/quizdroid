@@ -11,5 +11,4 @@ public interface TopicRepository {
 
     public List<topic> getAllTopics();
 
-    public topic getTopic(String topicName);
 }

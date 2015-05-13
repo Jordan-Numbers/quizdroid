@@ -12,15 +12,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.Random;
-
 
 public class QuestionFragment extends Fragment {
     private int index;
     private int correct;
-    private String question;
-    private String answer;
-    private String[] fakes;
+    private question question;
     private Activity hostActivity;
 
     public QuestionFragment() {
@@ -37,8 +33,6 @@ public class QuestionFragment extends Fragment {
         }
         if (hostActivity instanceof TopicActivity) {
             this.question = ((TopicActivity) hostActivity).getQuestion(this.index);
-            this.answer = ((TopicActivity) hostActivity).getAnswer(this.index);
-            this.fakes = ((TopicActivity) hostActivity).getFakes();
         }
     }
 
@@ -51,25 +45,16 @@ public class QuestionFragment extends Fragment {
 
         //display the question and answers
         TextView questionTitle = (TextView) v.findViewById(R.id.question);
-        questionTitle.setText(this.question);
+        questionTitle.setText(this.question.getQuestionText());
 
-        //each correct answer should randomly appear as a,b,c, or d
+        //get the radios
         RadioGroup answerBtns = (RadioGroup) v.findViewById(R.id.answers);
-        Random r = new Random();
-        int correctAnswer = r.nextInt(4);
         for (int i = 0; i < 4; i++) {
+            //set each radio
             RadioButton currentAnswer = (RadioButton) answerBtns.getChildAt(i);
-            if(i == correctAnswer){
-                currentAnswer.setText(this.answer);
-            }else{
-                //choose a random wrong answer from the fakes 'corpus'
-                int random;
-                random = r.nextInt(3);
-                currentAnswer.setText(this.fakes[random]);
-            }
+            currentAnswer.setText(this.question.getAnswers().get(i));
             currentAnswer.setOnClickListener(onClickListener_radio);
         }
-
 
         Button btn = (Button) v.findViewById(R.id.btn_submit);
         btn.setOnClickListener(new SubmitOnClickListener(this.index, this.correct));

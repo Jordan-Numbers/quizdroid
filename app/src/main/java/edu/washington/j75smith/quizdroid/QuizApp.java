@@ -9,11 +9,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.Map;
 
 /**
  * Custom application for Quizdroid
@@ -23,7 +20,7 @@ import java.util.Map;
 public class QuizApp extends Application implements TopicRepository {
 
     private static QuizApp instance = null;
-    private Map<String, topic> topics;
+    private List<topic> topics;
 
     public QuizApp(){
         if( instance == null){
@@ -34,45 +31,29 @@ public class QuizApp extends Application implements TopicRepository {
         }
     }
 
-    
+
     @Override
     public void onCreate() {
         super.onCreate();
         this.topics = initRepository();
     }
 
-    //returns only the specified topic
-    @Override
-    public topic getTopic(String topicName) {
-        return topics.get(topicName);
-    }
-
     //returns all of the app's topic objects
     @Override
     public List<topic> getAllTopics() {
-        //we need a list to hold the topics
-        List<topic> allTopics = new List<topic>;
-
-        // we need to grab all topics
-        Set<String> keys = topics.keySet();
-        for(String key : keys){
-            allTopics.add(topics.get(key));
-        }
-
-        return allTopics;
+        return topics;
     }
 
     //Creates the repo by parsing the JSON source into
     // topic and question domains
-    private Map<String, topic> initRepository(){
+    private List<topic> initRepository(){
 
-        Map<String, topic> results = new HashMap<String, topic>;
+        List<topic> results = new ArrayList<>();
 
         try {
             //get the topics
             JSONObject sourceJSON = new JSONObject(getJSON());
             JSONArray topicData = sourceJSON.getJSONArray("topics");
-
             for(int i = 0; i < topicData.length(); i++){
 
                 //get each component for the topic
@@ -84,31 +65,30 @@ public class QuizApp extends Application implements TopicRepository {
                 String longD = "";
 
                 //get the questions for this topic
-                List<question> topicQuestions = new List<question>;
+                List<question> topicQuestions = new ArrayList<>();
                 JSONArray questions = currentTopic.getJSONArray("questions");
-                for(int i = 0; i < questions.length(); i++){
+                for(int j = 0; j < questions.length(); j++){
 
                     //get the question
-                    JSONObject currentQuestion = questions.getJSONObject(i);
+                    JSONObject currentQuestion = questions.getJSONObject(j);
 
                     //get the question components
                     String text = currentQuestion.getString("text");
                     int index = currentQuestion.getInt("answer");
 
                     //get the answers into a list
-                    List<String> answerStrings = new List<String>;
+                    List<String> answerStrings = new ArrayList<>();
                     JSONArray answers = currentQuestion.getJSONArray("answers");
-                    for(int i = 0; i < answers.length(); i++) {
-                        answerStrings.add(answers.getString(i));
+                    for(int l = 0; l < answers.length(); l++) {
+                        answerStrings.add(answers.getString(l));
                     }
-
-                    //dreate and add the new question
+                    //create and add the new question
                     question newQuestion = new question(answerStrings, text, index);
                     topicQuestions.add(newQuestion);
                 }
 
                 topic newTopic = new topic(title, shortD, longD, topicQuestions);
-                results.put(title, newTopic);
+                results.add(newTopic);
             }
         } catch (JSONException e) {
             e.printStackTrace();
