@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +50,21 @@ public class MainActivity extends ActionBarActivity {
         btn_one.setOnClickListener(listener);
         btn_two.setOnClickListener(listener);
         btn_three.setOnClickListener(listener);
+
+        //Get the manager
+        this.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //init our receiver
+        this.alarmReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Toast.makeText(MainActivity.this, source, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        //register our receiver
+        registerReceiver(this.alarmReceiver, new IntentFilter("edu.washington.j75smith.quizdroid"));
+
     }
 
     @Override
@@ -59,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
         int interval;
 
         //get prefs
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("quizdroid", Context.MODE_PRIVATE);
 
         //define defaults
         String defSource = (String) getText(R.string.source_one);
@@ -85,29 +99,14 @@ public class MainActivity extends ActionBarActivity {
             interval = sharedPref.getInt("when", defTime);
         }
 
-        //Get the manager
-       this.manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        //init our receiver
-        this.alarmReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Toast.makeText(MainActivity.this, source, Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        //register our receiver
-        registerReceiver(this.alarmReceiver, new IntentFilter("edu.washington.j75smith.quizdroid"));
-
         //make the pending intent and its intent
         Intent stuffing = new Intent();
-        stuffing.setAction("edu.washington.j75smith.awty");
+        stuffing.setAction("edu.washington.j75smith.quizdroid");
         alarmIntent = PendingIntent.getBroadcast(this, 0, stuffing, 0);
 
         int millis = Math.round(interval * 60000);
         manager.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + millis, millis, alarmIntent);
 
-        Log.i("QUIZDROID_onStart", "interval " + interval + " URL " + this.source);
     }
 
     class mainOnClickListener implements OnClickListener {

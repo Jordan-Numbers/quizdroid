@@ -9,7 +9,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="action_preferences">Settings</string>
+    <string name="action_preferences">Preferences</string>
 
     <string name="label_fetch_when">How often do you want to update?</string>
     <string name="label_fetch_where">What quiz source do you want to use?</string>

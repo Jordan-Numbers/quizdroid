@@ -3,12 +3,12 @@ package edu.washington.j75smith.quizdroid;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.content.SharedPreferences;
 
 
 public class PreferencesActivity extends Activity {
@@ -39,18 +39,21 @@ public class PreferencesActivity extends Activity {
         @Override
         public void onClick(View v) {
             RadioButton checked = (RadioButton) this.radio_sources
-                                   .getChildAt(this.radio_sources.getCheckedRadioButtonId());
+                                .findViewById(this.radio_sources.getCheckedRadioButtonId());
             if(checked == null){
                 checked = (RadioButton) this.radio_sources.getChildAt(0);
             }
             String source = (String) checked.getText();
             int minutes = Integer.parseInt(this.interval.getText().toString());
 
-            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sharedPref = getSharedPreferences("quizdroid", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("when", minutes);
-            editor.putString("URl", source);
+            editor.putString("URL", source);
             editor.apply();
+
+            int w = sharedPref.getInt("when", 999999);
+            String u = sharedPref.getString("URL", "FUCK");
 
             Intent update = new Intent(PreferencesActivity.this, MainActivity.class);
             startActivity(update);
