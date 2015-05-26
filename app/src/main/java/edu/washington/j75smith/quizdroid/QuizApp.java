@@ -38,6 +38,11 @@ public class QuizApp extends Application implements TopicRepository {
         this.topics = initRepository();
     }
 
+    @Override
+    public void refreshRepository(){
+        this.topics = this.initRepository();
+    }
+
     //returns all of the app's topic objects
     @Override
     public List<topic> getAllTopics() {

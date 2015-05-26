@@ -15,8 +15,8 @@
     <string name="label_fetch_where">What quiz source do you want to use?</string>
     <string name="edit_label">(In Minutes)</string>
 
-    <string name="source_one">URL_1</string>
-    <string name="source_two">URL_2</string>
+    <string name="source_one">http://tednewardsandbox.site44.com/questions.json</string>
+    <string name="source_two">http://didthemarinerswintoday.com/</string>
 
     <string name="btn_prefs">Apply</string>
 

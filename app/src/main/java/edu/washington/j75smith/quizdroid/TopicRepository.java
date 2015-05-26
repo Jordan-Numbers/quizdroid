@@ -10,5 +10,6 @@ import java.util.List;
 public interface TopicRepository {
 
     public List<topic> getAllTopics();
+    public void refreshRepository();
 
 }
